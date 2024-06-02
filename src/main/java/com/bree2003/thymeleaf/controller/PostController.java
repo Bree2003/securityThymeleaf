@@ -27,12 +27,12 @@ public class PostController {
     @GetMapping("/home")
     public String homePage(Model model) {
         model.addAttribute("posts",postService.getAllPost());
-        return "/posts/home";
+        return "posts/home";
     }
 
     @GetMapping("/new")
     public String newPostPage() {
-        return "/posts/create-post";
+        return "posts/create-post";
     }
 
     @PostMapping("/create")
@@ -53,7 +53,7 @@ public class PostController {
 
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
-        return "/posts/post-page";
+        return "posts/post-page";
     }
 
     @GetMapping("/mine")
@@ -62,14 +62,14 @@ public class PostController {
         List<PostEntity> posts = postService.getPostByUserId(userId);
 
         model.addAttribute("posts", posts);
-        return "/posts/my-post";
+        return "posts/my-post";
     }
 
     @GetMapping("/edit/{id}")
     public String editPost(@PathVariable Long id , Model model) {
         PostEntity post = postService.getPostById(id).orElseThrow(() -> new IllegalArgumentException("¡Invalid post id!"));
         model.addAttribute("post",post);
-        return "/posts/update-post";
+        return "posts/update-post";
     }
 
     @PostMapping("/update")
@@ -88,6 +88,6 @@ public class PostController {
     public String searchPosts(@RequestParam("title") String title, Model model) {
         List<PostEntity> posts = postService.searchPostByTitle(title);
         model.addAttribute("posts", posts);
-        return "/posts/home";
+        return "posts/home";
     }
 }
